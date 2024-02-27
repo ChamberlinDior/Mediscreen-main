@@ -1,0 +1,86 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./src/main/resources:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mediscreen
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3307:3306
+  
+  mongo:
+    image: mongo
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+    ports:
+      - 27018:27017
+  
+  patientinfo:
+    image: patientinfo
+    build:
+      context: patientinfo
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/mediscreen?serverTimezone=Europe/Paris
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - 8081:8081
+    restart: always
+    
+  patientnote:
+    image: patientnote
+    build:
+      context: patientnote
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: mediscreen
+    ports:
+      - "8082:8082"
+    restart: always
+    
+  patientreport:
+    image: patientreport
+    build:
+      context: patientreport
+    depends_on:
+      - mysql
+    ports:
+      - "8083:8083"
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/mediscreen?serverTimezone=Europe/Paris
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      
+  patientui:
+    depends_on:
+      - patientinfo
+      - patientnote
+      - patientreport
+    image: patientui
+    build:
+      context: patientui
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      PATIENT_INFO_PROXY_URL: http://patientinfo:8081
+      PATIENT_NOTE_PROXY_URL: http://patientnote:8082
+      PATIENT_REPORT_PROXY_URL: http://patientreport:8083
+
+volumes:
+    mongo_data: null

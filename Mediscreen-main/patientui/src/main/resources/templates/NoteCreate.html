@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"/>
+
+<title>Note Create</title>
+
+</head>
+<body>
+	<div class="container">
+	
+		<!-- Banner -->
+		<div class="d-flex justify-content-start text-align-center m-2">
+			<div>
+				<img th:src="@{/images/mediscreen_logo.png}" alt="Mediscreen logo"/>
+			</div>
+			<div class="fw-bold fs-1 p-2">Mediscreen</div>
+		</div>
+		<div class="row">
+			<ul class="nav justify-content-end text-white bg-primary">
+				<li class="mx-2"><a style="color: white;" th:href="@{/}">Home</a></li>
+				<li class="mx-2"><a style="color: white;"	th:href="@{PatientList}">Patient list</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientSearch}">Patient search</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientCreate}">New patient</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{NoteList(patId=${patient.id})}">Back</a></li>
+			</ul>
+		</div>
+	
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<p class="fs-3 text-primary mb-0">
+				<span class="mx-2">Create</span>
+				<span class="mx-2" th:text="${patient.family}"></span>
+				<span class="mx-2" th:text="${patient.given}"></span>
+				<span class="mx-2">note</span>
+			</p>
+			
+			<div class="row">
+				<form action="#" th:action="@{/NoteCreate(patId=${patient.id})}" th:object="${note}" method="post">
+					<label class="control-label" th:text="${#temporals.format(note.date, 'yyyy-MM-dd')}">Date</label> 
+					<textarea rows="10" th:field="*{body}" class="form-control">Body</textarea>
+					<button type="submit" class="btn btn-primary">Create</button>	
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

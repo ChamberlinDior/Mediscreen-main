@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"/>
+
+<title>Home</title>
+
+</head>
+<body>
+	<div class="container">
+	
+		<!-- Banner -->
+		<div class="d-flex justify-content-start text-align-center m-2">
+			<div>
+				<img th:src="@{/images/mediscreen_logo.png}" alt="Mediscreen logo"/>
+			</div>
+			<div class="fw-bold fs-1 p-2">Mediscreen</div>
+		</div>
+		<div class="row">
+			<ul class="nav justify-content-end text-white bg-primary">
+				<li class="mx-2">Home</li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientList}">Patient list</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientSearch}">Patient search</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientCreate}">New patient</a></li>
+			</ul>
+		</div>
+		
+	
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<p class="fs-1 mb-0">Welcome</p>
+		</div>
+	
+	</div>
+	
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

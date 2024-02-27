@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+<title>Patient information</title>
+
+</head>
+<body>
+	<div class="container">
+
+		<!-- Banner -->
+		<div class="d-flex justify-content-start text-align-center m-2">
+			<div>
+				<img th:src="@{/images/mediscreen_logo.png}" alt="Mediscreen logo" />
+			</div>
+			<div class="fw-bold fs-1 p-2">Mediscreen</div>
+		</div>
+		<div class="row">
+			<ul class="nav justify-content-end text-white bg-primary">
+				<li class="mx-2"><a style="color: white;" th:href="@{/}">Home</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientList}">Patient list</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientSearch}">Patient search</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientCreate}">New patient</a></li>
+			</ul>
+		</div>
+
+		<!-- Patient informations -->
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<p class="fs-3 text-primary mb-2 border-bottom">Patient information</p>
+			<p>
+				<span class="text-primary fw-bold">Last name :&#160;</span>
+				<span th:text="${patient.family}" style="text-transform: capitalize;">Last name</span>
+			</p>
+			<p>
+				<span class="text-primary fw-bold">Last name :&#160;</span>
+				<span th:text="${patient.given}" style="text-transform: capitalize;">First name</span>
+			</p>
+			<p>
+				<span class="text-primary fw-bold">Birthday :&#160;</span>
+				<span th:text="${patient.dob}">Birthday</span>
+			</p>
+			<p>
+				<span class="text-primary fw-bold">Sex :&#160;</span>
+				<span th:text="${patient.sex}">Sex</span>
+			</p>
+			<p>
+				<span class="text-primary fw-bold">Address :&#160;</span>
+				<span th:text="${patient.address}">Address</span>
+			</p>
+			<p>
+				<span class="text-primary fw-bold">Phone :&#160;</span>
+				<span th:text="${patient.phone}">Phone</span>
+			</p>
+			<p>
+				<a class="text-white bg-danger rounded mx-auto my-2 p-2" 
+					style="text-decoration: none;"
+					th:href="@{PatientUpdate(id=${patient.id})}"
+					role="button">
+					Modify
+				</a>
+				<a class="text-white bg-primary rounded mx-auto my-2 ms-4 p-2"
+					style="text-decoration: none;"
+					th:href="@{NoteList(patId=${patient.id})}"
+					role="button">
+					Notes
+				</a>
+			</p>
+		</div>
+		<!-- Patient informations -->
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<div class="d-flex flex-row border border-primary">
+				<span th:text="${patient.family}" style="text-transform: capitalize;" class="me-1">Last name</span>
+				<span th:text="${patient.given}" style="text-transform: capitalize;">First name</span>
+				<span>&#160;(age&#160;</span>
+				<span th:text="${report.age}">age</span>
+				<span>)&#160;</span>
+				<span>diabetes assessment is :&#160;</span>
+				<span th:text="${report.assessment}" class="bg-warning">assessment</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap JS bundle -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

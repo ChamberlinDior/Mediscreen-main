@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"/>
+
+<title>Not Found</title>
+
+</head>
+<body>
+	<div class="container">
+	
+		<!-- Banner -->
+		<div class="d-flex justify-content-start text-align-center m-2">
+			<div>
+				<img th:src="@{/images/mediscreen_logo.png}" alt="Mediscreen logo"/>
+			</div>
+			<div class="fw-bold fs-1 p-2">Mediscreen</div>
+		</div>
+		<div class="row">
+			<ul class="nav justify-content-end text-white bg-primary">
+				<li class="mx-1">Home</li>
+				<!-- 	
+				<li class="mx-1"><a th:href="@{patientlist}">Patient list</a></li>
+				-->
+			</ul>
+		</div>
+	
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<h2>
+				<span>Error : </span>
+				<span th:text="${error.status}"></span>
+			</h2>
+			<p th:text="${error.message}">Message</p>
+		</div>
+	
+	</div>
+	
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

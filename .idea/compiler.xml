@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="patientReport" />
+        <module name="patientInfo" />
+        <module name="patientui" />
+        <module name="patientNote" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="patientInfo" options="-parameters" />
+      <module name="patientNote" options="-parameters" />
+      <module name="patientReport" options="-parameters" />
+      <module name="patientui" options="-parameters" />
+    </option>
+  </component>
+</project>

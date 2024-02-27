@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"/>
+
+<title>Patient List</title>
+
+</head>
+<body>
+	<div class="container">
+	
+		<!-- Banner -->
+		<div class="d-flex justify-content-start text-align-center m-2">
+			<div>
+				<img th:src="@{/images/mediscreen_logo.png}" alt="Mediscreen logo"/>
+			</div>
+			<div class="fw-bold fs-1 p-2">Mediscreen</div>
+		</div>
+		<div class="row">
+			<ul class="nav justify-content-end text-white bg-primary">
+				<li class="mx-2"><a style="color: white;" th:href="@{/}">Home</a></li>
+				<li class="mx-2">Patient list</li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientSearch}">Patient search</a></li>
+				<li class="mx-2"><a style="color: white;" th:href="@{PatientCreate}">New patient</a></li>
+			</ul>
+		</div>
+		
+	
+		<div class="row col-md-8 col-xs-12 mx-auto mt-4">
+			<p class="fs-3 text-primary mb-0">Patient list</p>
+			<table class="table table-striped border border-secondary text-center">
+				<thead class="text-white bg-primary">
+					<tr>
+						<th>Last name</th>
+						<th>First name</th>
+						<th>Birthday</th>
+						<th>Sex</th>
+						<th>Address</th>
+						<th>Phone</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="patient:${patients}">
+						<td th:text="${patient.family}" style="text-transform: capitalize;">Last name</td>
+						<td th:text="${patient.given}" style="text-transform: capitalize;">First name</td>
+						<td th:text="${patient.dob}">Birthday</td>
+						<td th:text="${patient.sex}">Sex</td>
+						<td th:text="${patient.address}">Address</td>
+						<td th:text="${patient.phone}">Phone</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+	</div>
+	
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
