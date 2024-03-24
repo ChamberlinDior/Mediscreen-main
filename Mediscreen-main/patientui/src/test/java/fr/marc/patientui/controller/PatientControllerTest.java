@@ -37,7 +37,7 @@ import fr.marc.patientui.proxies.PatientReportProxy;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PatientControllerTest {
+public class  PatientControllerTest {
 	
 	@Autowired
 	private PatientController patientController;

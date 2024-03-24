@@ -30,26 +30,28 @@ import fr.marc.patientui.beans.PatientBean;
 import fr.marc.patientui.proxies.PatientInfoProxy;
 import fr.marc.patientui.proxies.PatientNoteProxy;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest  // Indique que cette classe est un test Spring Boot
+@AutoConfigureMockMvc  // Configure automatiquement le MockMvc
 public class NoteControllerTest {
-	
+
 	@Autowired
-	private MockMvc mockMvc;
-	
+	private MockMvc mockMvc;  // Injection de MockMvc pour simuler les requêtes HTTP
+
 	@MockBean
-	private PatientNoteProxy patientNoteProxy;
-	
+	private PatientNoteProxy patientNoteProxy;  // Mock pour simuler le proxy de notes de patients
+
 	@MockBean
-	private PatientInfoProxy patientInfoProxy;
-	
-	private static final Logger log = LoggerFactory.getLogger(NoteControllerTest.class); 
-	private NoteBean note1;
-	private NoteBean note2;
-	private PatientBean patient1;
-	
+	private PatientInfoProxy patientInfoProxy;  // Mock pour simuler le proxy d'informations de patients
+
+	private static final Logger log = LoggerFactory.getLogger(NoteControllerTest.class);  // Logger
+
+	private NoteBean note1;  // Déclaration de NoteBean pour le test
+	private NoteBean note2;  // Déclaration de NoteBean pour le test
+	private PatientBean patient1;  // Déclaration de PatientBean pour le test
+
 	@BeforeEach
 	public void init() {
+		// Initialisation des objets pour les tests
 		note1 = NoteBean.builder()
 				.id("1")
 				.patId(1)
@@ -72,47 +74,53 @@ public class NoteControllerTest {
 				.phone("111111")
 				.build();
 	}
-	
+
 	@Test
 	public void displayNoteListPage() throws Exception {
+		// Simulation de réponses du proxy pour les tests
 		when(patientNoteProxy.getNotesByPatientId(1))
-			.thenReturn(List.of(note1, note2));
+				.thenReturn(List.of(note1, note2));
 		when(patientInfoProxy.getPatientById(1))
-			.thenReturn(patient1);
+				.thenReturn(patient1);
+
+		// Effectue une requête GET et vérifie les attentes
 		mockMvc.perform(get("/NoteList?patId=1"))
-        	.andExpect(status().isOk())
-        	.andExpect(view().name("NoteList"))
-        	.andExpect(content().string(containsString("last1")))
-        	.andExpect(content().string(containsString("first1")))
-        	.andExpect(content().string(containsString("notes")))
-        	.andExpect(content().string(containsString("Body1")))
-        	.andExpect(content().string(containsString("Body2")));
+				.andExpect(status().isOk())  // Vérifie le statut de la réponse HTTP
+				.andExpect(view().name("NoteList"))  // Vérifie le nom de la vue retournée
+				.andExpect(content().string(containsString("last1")))  // Vérifie la présence du nom de famille
+				.andExpect(content().string(containsString("first1")))  // Vérifie la présence du prénom
+				.andExpect(content().string(containsString("notes")))  // Vérifie la présence du mot "notes"
+				.andExpect(content().string(containsString("Body1")))  // Vérifie la présence du corps de la note 1
+				.andExpect(content().string(containsString("Body2")));  // Vérifie la présence du corps de la note 2
 	}
-	
+
 	@Nested
 	class NoteUpdateRequest {
 		@Test
 		public void update_note1() throws Exception {
-			ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = new ObjectMapper();  // Initialise un objet ObjectMapper
 			NoteBean updatedNote = NoteBean.builder()
 					.body("Body updated")
 					.build();
+			// Simulation de la mise à jour de la note
 			when(patientNoteProxy.updateNote("1", updatedNote))
-				.thenReturn(note1);
-	        mockMvc.perform(post("/NoteUpdate?id=1")
-	        		.contentType(MediaType.APPLICATION_JSON)
-	        		.content(mapper.writeValueAsString(updatedNote))
-	        		.flashAttr("note", updatedNote))
-	            .andExpect(status().is(302))
-	            .andExpect(view().name("redirect:/NoteList?patId=1"));
+					.thenReturn(note1);
+
+			// Effectue une requête POST pour mettre à jour une note et vérifie les attentes
+			mockMvc.perform(post("/NoteUpdate?id=1")
+							.contentType(MediaType.APPLICATION_JSON)  // Type de contenu JSON
+							.content(mapper.writeValueAsString(updatedNote))  // Corps de la requête
+							.flashAttr("note", updatedNote))  // Attribut flash pour passer les données à la vue suivante
+					.andExpect(status().is(302))  // Vérifie le statut de redirection
+					.andExpect(view().name("redirect:/NoteList?patId=1"));  // Vérifie la redirection vers la liste des notes
 		}
 	}
-	
+
 	@Nested
 	class NoteCreateRequest {
 		@Test
 		public void create_note() throws Exception {
-			ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = new ObjectMapper();  // Initialise un objet ObjectMapper
 			NoteBean newBody = NoteBean.builder()
 					.body("New body")
 					.build();
@@ -122,14 +130,17 @@ public class NoteControllerTest {
 					.date(LocalDateTime.of(2023, 4, 3, 0, 0, 0))
 					.body("New body")
 					.build();
+			// Simulation de la création d'une nouvelle note
 			when(patientNoteProxy.createNote(1, newBody))
-				.thenReturn(createdNote);
-	        mockMvc.perform(post("/NoteCreate?patId=1")
-	        		.contentType(MediaType.APPLICATION_JSON)
-	        		.content(mapper.writeValueAsString(newBody))
-	        		.flashAttr("note", newBody))
-	            .andExpect(status().is(302))
-	            .andExpect(view().name("redirect:/NoteList?patId=1"));
+					.thenReturn(createdNote);
+
+			// Effectue une requête POST pour créer une nouvelle note et vérifie les attentes
+			mockMvc.perform(post("/NoteCreate?patId=1")
+							.contentType(MediaType.APPLICATION_JSON)  // Type de contenu JSON
+							.content(mapper.writeValueAsString(newBody))  // Corps de la requête
+							.flashAttr("note", newBody))  // Attribut flash pour passer les données à la vue suivante
+					.andExpect(status().is(302))  // Vérifie le statut de redirection
+					.andExpect(view().name("redirect:/NoteList?patId=1"));  // Vérifie la redirection vers la liste des notes
 		}
 	}
 
