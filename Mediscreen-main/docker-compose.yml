@@ -1,86 +1,128 @@
+# Définition de la version de la configuration de Docker Compose
 version: '3'
 
 services:
 
+  # Configuration du service MySQL
   mysql:
+    # Utilisation de l'image MySQL version 8.0.32
     image: mysql:8.0.32
+    # Commande spécifique pour MySQL
     command: --default-authentication-plugin=mysql_native_password
+    # Montage du répertoire local vers le répertoire d'initialisation de la base de données dans le conteneur
     volumes:
       - ./src/main/resources:/docker-entrypoint-initdb.d
+    # Redémarrage automatique du service
     restart: always
+    # Variables d'environnement pour la configuration de MySQL
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mediscreen
       MYSQL_USER: root
       MYSQL_PASSWORD: root
+    # Mappage du port 3307 de l'hôte vers le port 3306 du conteneur MySQL
     ports:
       - 3307:3306
-  
+
+  # Configuration du service MongoDB
   mongo:
+    # Utilisation de l'image MongoDB
     image: mongo
+    # Montage d'un volume pour stocker les données de MongoDB
     volumes:
       - mongo_data:/data/db
+    # Redémarrage automatique du service
     restart: always
+    # Mappage du port 27018 de l'hôte vers le port 27017 du conteneur MongoDB
     ports:
       - 27018:27017
-  
+
+  # Configuration du service patientinfo
   patientinfo:
+    # Utilisation de l'image patientinfo
     image: patientinfo
+    # Construction de l'image à partir du contexte patientinfo
     build:
       context: patientinfo
+    # Dépendance du service patientinfo sur MySQL
     depends_on:
       - mysql
+    # Variables d'environnement pour la configuration de Spring Data
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/mediscreen?serverTimezone=Europe/Paris
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+    # Mappage du port 8081 de l'hôte vers le port 8081 du conteneur patientinfo
     ports:
       - 8081:8081
+    # Redémarrage automatique du service
     restart: always
-    
+
+  # Configuration du service patientnote
   patientnote:
+    # Utilisation de l'image patientnote
     image: patientnote
+    # Construction de l'image à partir du contexte patientnote
     build:
       context: patientnote
+    # Dépendance du service patientnote sur MongoDB
     depends_on:
       - mongo
+    # Variables d'environnement pour la configuration de Spring Data MongoDB
     environment:
       SPRING_DATA_MONGODB_HOST: mongo
       SPRING_DATA_MONGODB_PORT: 27017
       SPRING_DATA_MONGODB_DATABASE: mediscreen
+    # Mappage du port 8082 de l'hôte vers le port 8082 du conteneur patientnote
     ports:
       - "8082:8082"
+    # Redémarrage automatique du service
     restart: always
-    
+
+  # Configuration du service patientreport
   patientreport:
+    # Utilisation de l'image patientreport
     image: patientreport
+    # Construction de l'image à partir du contexte patientreport
     build:
       context: patientreport
+    # Dépendance du service patientreport sur MySQL
     depends_on:
       - mysql
+    # Mappage du port 8083 de l'hôte vers le port 8083 du conteneur patientreport
     ports:
       - "8083:8083"
+    # Redémarrage automatique du service
     restart: always
+    # Variables d'environnement pour la configuration de Spring Data
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/mediscreen?serverTimezone=Europe/Paris
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      
+
+  # Configuration du service patientui
   patientui:
+    # Dépendances du service patientui sur les autres services
     depends_on:
       - patientinfo
       - patientnote
       - patientreport
+    # Utilisation de l'image patientui
     image: patientui
+    # Construction de l'image à partir du contexte patientui
     build:
       context: patientui
+    # Mappage du port 8080 de l'hôte vers le port 8080 du conteneur patientui
     ports:
       - "8080:8080"
+    # Redémarrage automatique du service
     restart: always
+    # Variables d'environnement pour la configuration des URL de proxy
     environment:
       PATIENT_INFO_PROXY_URL: http://patientinfo:8081
       PATIENT_NOTE_PROXY_URL: http://patientnote:8082
       PATIENT_REPORT_PROXY_URL: http://patientreport:8083
 
+# Définition du volume pour les données MongoDB
 volumes:
-    mongo_data: null
+  mongo_data: null

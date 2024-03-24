@@ -35,7 +35,7 @@ public class Note {
 	 * Constructeur pour créer une nouvelle instance de Note avec les détails spécifiés.
 	 * @param patId Identifiant du patient associé à la note.
 	 * @param date Date de la note.
-	 * @param body Contenu de la note. 
+	 * @param body Contenu de la note.
 	 */
 
 	public Note(Integer patId, LocalDateTime date, String body) {
