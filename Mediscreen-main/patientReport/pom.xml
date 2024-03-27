@@ -9,7 +9,7 @@
 		<version>3.0.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>fr.marc</groupId>
+	<groupId>fr.dior</groupId>
 	<artifactId>patientReport</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>patientReport</name>

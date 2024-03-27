@@ -10,7 +10,7 @@
 		<version>3.0.4</version>
 		<relativePath />
 	</parent>
-	<groupId>fr.marc</groupId>
+	<groupId>fr.dior</groupId>
 	<artifactId>patientNote</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>patientNote</name>
