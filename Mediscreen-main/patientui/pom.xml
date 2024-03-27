@@ -118,7 +118,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>fr/marc/patientui/beans/*</exclude>
+						<exclude>fr/dior/patientui/beans/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

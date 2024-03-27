@@ -90,7 +90,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>fr/marc/patientReport/model/*</exclude>
+						<exclude>fr/dior/patientReport/model/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

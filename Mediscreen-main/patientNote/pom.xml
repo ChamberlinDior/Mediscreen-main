@@ -89,7 +89,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>fr/marc/patientNote/model/*</exclude>
+						<exclude>fr/dior/patientNote/model/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

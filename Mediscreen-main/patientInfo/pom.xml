@@ -96,7 +96,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>fr/marc/patientInfo/model/*</exclude>
+						<exclude>fr/dior/patientInfo/model/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
