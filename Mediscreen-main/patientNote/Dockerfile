@@ -9,3 +9,4 @@ EXPOSE 8082
 
 # Commande pour exécuter l'application lors du démarrage du conteneur
 CMD ["java", "-jar", "patientNote-0.0.1-SNAPSHOT.jar"]
+
