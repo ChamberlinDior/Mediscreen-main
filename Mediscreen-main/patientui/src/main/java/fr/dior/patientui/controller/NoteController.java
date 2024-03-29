@@ -3,6 +3,8 @@ package fr.dior.patientui.controller;
 import fr.dior.patientui.beans.NoteBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,8 @@ import fr.dior.patientui.proxies.PatientNoteProxy;
  * Contrôleur gérant les opérations liées aux notes médicales (CRUD).
  */
 @Controller
+@ComponentScan
+@EnableAutoConfiguration
 public class NoteController {
 	
 	private static final Logger log = LoggerFactory.getLogger(NoteController.class); 
