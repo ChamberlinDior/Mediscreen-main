@@ -1,9 +1,9 @@
 /* Data to test the PatientReport DB */
 
-USE mediscreen;
+-- USE mediscreen;
 
 -- Default values for table 'triggers'
-
+delete from triggers;
 INSERT INTO triggers (term)
 VALUES
 ('hémoglobine a1c'),('hemoglobin a1c'),

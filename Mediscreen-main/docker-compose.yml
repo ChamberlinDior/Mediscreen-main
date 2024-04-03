@@ -53,7 +53,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=root
     # Mappage du port 8081 de l'hôte vers le port 8081 du conteneur patientinfo
     ports:
-      - 8081:8081
+      - 8081:8080
     # Redémarrage automatique du service
     restart: always
 
@@ -74,7 +74,7 @@ services:
       SPRING_DATA_MONGODB_DATABASE: mediscreen
     # Mappage du port 8082 de l'hôte vers le port 8082 du conteneur patientnote
     ports:
-      - "8082:8082"
+      - "8082:8080"
     # Redémarrage automatique du service
     restart: always
 
@@ -90,7 +90,7 @@ services:
       - mysql
     # Mappage du port 8083 de l'hôte vers le port 8083 du conteneur patientreport
     ports:
-      - "8083:8083"
+      - "8083:8080"
     # Redémarrage automatique du service
     restart: always
     # Variables d'environnement pour la configuration de Spring Data
@@ -113,7 +113,7 @@ services:
       context: patientui
     # Mappage du port 8080 de l'hôte vers le port 8080 du conteneur patientui
     ports:
-      - "8080:8080"
+     - "8084:8080"
     # Redémarrage automatique du service
     restart: always
     # Variables d'environnement pour la configuration des URL de proxy

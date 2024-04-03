@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk-alpine
 
-COPY target/patientReport-0.0.1-SNAPSHOT.jar .
+COPY target/patientReport-0.0.1-SNAPSHOT.jar patient-report.jar
 
-EXPOSE 8083
+EXPOSE 8080
 
-CMD ["java", "-jar", "patientReport-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "patient-report.jar"]

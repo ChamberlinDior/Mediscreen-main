@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  database-ihm:
+    container_name: database-ihm
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - patient-network
+networks:
+  patient-network:
+    name: patient-network
+    external: true

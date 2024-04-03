@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.dior.patientui.beans.PatientBean;
 
 // Déclaration de l'interface Feign Client avec le nom du service distant et son URL
-@FeignClient(name = "mediscreen-patientInfo", url = "http://patientinfo:8081")
+@FeignClient(name = "mediscreen-patientInfo", url = "http://patient-info:8080")
 public interface PatientInfoProxy {
 
 	// Déclaration d'une méthode GET pour récupérer la liste des patients

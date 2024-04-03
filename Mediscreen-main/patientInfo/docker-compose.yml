@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  patient-info:
+    container_name: patient-info
+    image: patient-info:1.0.0
+    restart: always
+    ports:
+      - 8088:8080
+    networks:
+      - patient-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+networks:
+  patient-network:
+    name: patient-network
+    external: true

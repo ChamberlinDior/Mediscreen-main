@@ -1,12 +1,10 @@
-# Utilisation de l'image OpenJDK version 17 avec Alpine comme base
+# Utilisation de l'image OpenJDK 17 avec Alpine Linux comme base
 FROM openjdk:17-jdk-alpine
 
-# Copie du fichier JAR généré dans le répertoire cible de l'image
-COPY target/patientNote-0.0.1-SNAPSHOT.jar .
+COPY target/patientNote-0.0.1-SNAPSHOT.jar patient-note.jar
 
-# Exposition du port 8082 (celui défini dans l'application Spring Boot)
-EXPOSE 8082
+EXPOSE 8080
 
-# Commande pour exécuter l'application lors du démarrage du conteneur
-CMD ["java", "-jar", "patientNote-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "patient-note.jar"]
+
 

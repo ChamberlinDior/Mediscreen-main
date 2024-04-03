@@ -1,6 +1,6 @@
 /* Data to test the PatientInfo DB */
 
-USE mediscreen;
+--USE mediscreen;
 
 -- Default values for table 'user'
 

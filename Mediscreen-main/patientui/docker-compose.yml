@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  patient-ui:
+    container_name: patient-ui
+    image: patient-ui:1.0.0
+    restart: always
+    ports:
+      - 8087:8080
+    networks:
+      - patient-network
+    environment:
+        PATIENT_INFO_PROXY_URL: http://patientinfo:8080
+        PATIENT_NOTE_PROXY_URL: http://patientnote:8080
+        PATIENT_REPORT_PROXY_URL: http://patientreport:8080
+        SPRING_PROFILES_ACTIVE: prod
+networks:
+  patient-network:
+    name: patient-network
+    external: true

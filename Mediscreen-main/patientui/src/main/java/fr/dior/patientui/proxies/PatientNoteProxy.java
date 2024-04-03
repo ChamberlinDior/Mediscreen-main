@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 // Déclaration de l'interface Feign Client avec le nom du service distant et son URL
-@FeignClient(name = "mediscreen-patientNote", url = "http://patientnote:8082")
+@FeignClient(name = "mediscreen-patientNote", url = "http://patient-note:8080")
 public interface PatientNoteProxy {
 
 	// Déclaration d'une méthode GET pour récupérer les notes d'un patient par son identifiant

@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  patient-report:
+    container_name: patient-report
+    image: patient-report:1.0.0
+    restart: always
+    ports:
+      - 8085:8080
+    networks:
+      - patient-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+networks:
+  patient-network:
+    name: patient-network
+    external: true

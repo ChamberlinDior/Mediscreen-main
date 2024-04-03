@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  patient-note-db:
+    image: mongo:5.0.4
+    container_name: patient-note-db
+    restart: always
+    networks:
+      - patient-network
+    ports:
+      - 27017:27017
+networks:
+  patient-network:
+    name: patient-network
+    external: true

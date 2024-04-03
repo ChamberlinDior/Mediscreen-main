@@ -44,7 +44,18 @@ http://localhost:8083/PatientReport
 
 [http://localhost:8083/swagger-ui/index.html#/](http://localhost:8083/swagger-ui/index.html#/)
 
+## generate jar 
+```
+mvn -DskipTests clean compile package
+```
 
+## contruire image 
+```
+docker build -t patient-ui:1.0.0 .
+docker compose up -d
+docker ps -a | grep patient- 
+
+```
 
 
 

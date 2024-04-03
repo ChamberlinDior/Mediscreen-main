@@ -2,7 +2,7 @@
 
 -- Clear Database
 
-USE mediscreen;
+-- USE mediscreen;
 DROP TABLE IF EXISTS triggers;
 
 

@@ -44,7 +44,7 @@ Exemple : [http://localhost:8082/PatientNote/byPatient?patId=1](http://localhost
 
 [http://localhost:8082/swagger-ui/index.html#/](http://localhost:8082/swagger-ui/index.html#/)
 
-
+http://localhost:8088/PatientInfo/list
 
 
 
